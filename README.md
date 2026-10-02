@@ -55,7 +55,7 @@ The development roadmap includes requirements and system design, authentication 
 ## Project Updates
 
 💼 LinkedIn:  
-[View the DriverCred Project Post](INSERT_LINKEDIN_URL)
+[View the DriverCred Project Post](https://lnkd.in/p/gd8YtVbS)
 
 ## Future Development
 
