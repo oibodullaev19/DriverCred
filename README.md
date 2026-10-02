@@ -50,7 +50,7 @@ The development roadmap includes requirements and system design, authentication 
 ## Project Presentation
 
 🎥 YouTube Presentation:  
-[Watch the DriverCred Project Proposal](https://youtu.be/vBeYw17WpMA)
+[Watch the DriverCred Project Proposal](https://youtu.be/p_grb34mZl0)
 
 ## Project Updates
 
