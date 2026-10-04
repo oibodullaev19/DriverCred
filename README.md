@@ -1,56 +1,80 @@
-# Welcome to your Expo app 👋
+# DriverCred
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Verified Careers. Trusted Drivers.
 
-## Get started
+DriverCred is a mobile-first professional reputation and employment verification platform designed for commercial drivers and transportation employers.
 
-1. Install dependencies
+The platform is being developed to provide a structured workflow for professional driver profiles, employment history, employment verification, professional evaluations, driver participation, and controlled access to employment information.
 
-   ```bash
-   npm install
-   ```
+## Project Vision
 
-2. Start the app
+Commercial driver information can exist across employment verification systems, safety records, screening platforms, and reputation services.
 
-   ```bash
-   npx expo start
-   ```
+DriverCred explores a more unified approach in which drivers can maintain a professional profile while employers can search authorized information, request employment verification, and provide structured professional feedback.
 
-In the output, you'll find options to open the app in a
+## Core Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Driver and employer accounts
+- Professional driver profiles
+- Employment history
+- Employment verification requests
+- Structured professional evaluations
+- Employer driver search
+- Driver participation and record correction
+- Consent and access controls
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Technology Stack
 
-## Get a fresh project
+**Mobile Development**
+- React Native
+- Expo
 
-When you're ready, run:
+**Backend & Data Services**
+- Firebase
 
-```bash
-npm run reset-project
-```
+**Development**
+- VS Code
+- Git
+- GitHub
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Design & Documentation**
+- Figma
+- Draw.io
 
-### Other setup steps
+## Development Approach
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+DriverCred is being developed iteratively using Agile Scrum principles.
 
-## Learn more
+The development roadmap includes requirements and system design, authentication and profile development, employment verification workflows, testing and security review, documentation, deployment, and continuous improvement.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Presentation
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+🎥 YouTube Presentation:  
+[Watch the DriverCred Project Proposal](https://youtu.be/p_grb34mZl0)
 
-## Join the community
+## Project Updates
 
-Join our community of developers creating universal apps.
+💼 LinkedIn:  
+[View the DriverCred Project Post](https://lnkd.in/p/gd8YtVbS)
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Future Development
+
+Future development opportunities include:
+
+- Responsive web platform
+- MVR, PSP, and other industry verification integrations
+- AI-assisted analytics and search
+- Advanced document verification and audit workflows
+- Quantum-safe security research
+
+## Acknowledgment
+
+Special thanks to **Dr. V. Govindaswamy** for his guidance, feedback, and continued support throughout the development of DriverCred. His mentorship has been valuable in shaping the project scope, development process, and overall software engineering approach.
+
+## Author
+
+**Omon Ibodullaev**
+
+---
+
+DriverCred — **Verified Careers. Trusted Drivers.**
