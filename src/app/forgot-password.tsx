@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -51,6 +51,15 @@ export default function ForgotPasswordScreen() {
         ]
       );
     } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+    Alert.alert(
+      'Reset Email Sent',
+      'If an account exists for this email address, a password reset link has been sent. Please check your inbox and spam folder.',
+      [{ text: 'OK', onPress: () => router.replace('/login') }]
+    );
+    return;
+    }      
+      
       let message =
         'Unable to send the password reset email. Please try again.';
 

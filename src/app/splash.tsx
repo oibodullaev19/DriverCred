@@ -2,11 +2,11 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useRef } from 'react';
 import {
-    Animated,
-    Image,
-    StyleSheet,
-    Text,
-    View,
+  Animated,
+  Image,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
 export default function SplashScreen() {

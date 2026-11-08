@@ -1,33 +1,33 @@
 import { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 
 import {
-    createUserWithEmailAndPassword,
-    sendEmailVerification,
-    signOut,
-    updateProfile,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  updateProfile,
 } from 'firebase/auth';
 
 import { auth, db } from '../config/firebase';
 
 import {
-    doc,
-    serverTimestamp,
-    setDoc,
+  doc,
+  serverTimestamp,
+  setDoc,
 } from 'firebase/firestore';
 
 export default function RegisterScreen() {
@@ -63,10 +63,10 @@ export default function RegisterScreen() {
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 15) {
       Alert.alert(
         'Password Too Short',
-        'Your password must contain at least 6 characters.'
+        'Your password must contain at least 15 characters.'
       );
       return;
     }
@@ -124,6 +124,8 @@ export default function RegisterScreen() {
         message = 'Please enter a valid email address.';
       } else if (error.code === 'auth/weak-password') {
         message = 'Please choose a stronger password.';
+      } else if (error.code === 'auth/password-does-not-meet-requirements') {
+        message = 'Your password must contain at least 15 characters.';
       } else if (error.code === 'auth/network-request-failed') {
         message = 'Network error. Please check your internet connection.';
       }
@@ -158,6 +160,8 @@ export default function RegisterScreen() {
             ? 'Create an employer account to search drivers and manage verification requests.'
             : 'Create a driver account to build your professional profile and employment history.'}
         </Text>
+
+        <Text style={styles.requiredNote}>All fields are required.</Text>
 
         <Text style={styles.label}>First Name</Text>
 
@@ -284,7 +288,7 @@ export default function RegisterScreen() {
         </View>
 
         <Text style={styles.passwordHint}>
-          Password must contain at least 6 characters.
+          Password must contain at least 15 characters.
         </Text>
 
         <Text style={styles.label}>Confirm Password</Text>
@@ -373,8 +377,15 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     color: '#64748B',
     marginTop: 6,
-    marginBottom: 24,
+    marginBottom: 8,
   },
+
+   requiredNote: {
+     fontSize: 13,
+     fontWeight: '600',
+     color: '#64748B',
+     marginBottom: 10,
+   },
 
   label: {
     fontSize: 14,

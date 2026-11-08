@@ -1,15 +1,16 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 
 import {
-    Alert,
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -17,8 +18,8 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import {
-    signInWithEmailAndPassword,
-    signOut,
+  signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 import { auth } from '../config/firebase';
@@ -27,59 +28,74 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
-  if (!email.trim() || !password) {
-    Alert.alert(
-      'Missing Information',
-      'Please enter your email and password.'
-    );
-    return;
-  }
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email.trim(),
-      password
-    );
-
-    const user = userCredential.user;
-
-    if (!user.emailVerified) {
-      await signOut(auth);
-
+    if (!email.trim() || !password) {
       Alert.alert(
-        'Email Not Verified',
-        'Please verify your email address before signing in.'
+        'Missing Information',
+        'Please enter your email and password.'
       );
-
       return;
     }
 
-    router.replace('/dashboard');
-    
-  } catch (error: any) {
-    let message = 'Unable to sign in. Please try again.';
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
+      );
 
-    if (
-      error.code === 'auth/invalid-credential' ||
-      error.code === 'auth/wrong-password' ||
-      error.code === 'auth/user-not-found'
-    ) {
-      message = 'Incorrect email or password.';
-    } else if (error.code === 'auth/invalid-email') {
-      message = 'Please enter a valid email address.';
-    } else if (error.code === 'auth/too-many-requests') {
-      message =
-        'Too many unsuccessful login attempts. Please wait and try again.';
-    } else if (error.code === 'auth/network-request-failed') {
-      message = 'Network error. Please check your internet connection.';
+      const user = userCredential.user;
+
+      if (!user.emailVerified) {
+        await signOut(auth);
+
+        Alert.alert(
+          'Email Not Verified',
+          'Please verify your email address before signing in.'
+        );
+
+        return;
+      }
+
+      await AsyncStorage.setItem(
+        'rememberMe',
+        rememberMe ? 'true' : 'false'
+      );
+
+      if (rememberMe) {
+        await AsyncStorage.setItem(
+          'rememberedEmail',
+          email.trim()
+        );
+      } else {
+        await AsyncStorage.removeItem('rememberedEmail');
+      }
+
+      router.replace('/dashboard');
+    } catch (error: any) {
+      let message = 'Unable to sign in. Please try again.';
+
+      if (
+        error.code === 'auth/invalid-credential' ||
+        error.code === 'auth/wrong-password' ||
+        error.code === 'auth/user-not-found'
+      ) {
+        message = 'Incorrect email or password.';
+      } else if (error.code === 'auth/invalid-email') {
+        message = 'Please enter a valid email address.';
+      } else if (error.code === 'auth/too-many-requests') {
+        message =
+          'Too many unsuccessful login attempts. Please wait and try again.';
+      } else if (error.code === 'auth/network-request-failed') {
+        message =
+          'Network error. Please check your internet connection.';
+      }
+
+      Alert.alert('Sign In Failed', message);
     }
-
-    Alert.alert('Sign In Failed', message);
-  }
-};
+  };
 
   return (
     <KeyboardAvoidingView
@@ -145,39 +161,85 @@ export default function LoginScreen() {
               style={styles.eyeButton}
             >
               <Ionicons
-                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                name={
+                  showPassword
+                    ? 'eye-off-outline'
+                    : 'eye-outline'
+                }
                 size={22}
                 color="#64748B"
               />
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity 
-          style={styles.forgotButton}
-          onPress={() => router.push('/forgot-password')}
-          >
-            <Text style={styles.forgotText}>Forgot Password?</Text>
-          </TouchableOpacity>
+          <View style={styles.loginOptionsRow}>
+            <TouchableOpacity
+              style={styles.rememberContainer}
+              onPress={() => setRememberMe(!rememberMe)}
+              activeOpacity={0.7}
+            >
+              <View
+                style={[
+                  styles.checkbox,
+                  rememberMe && styles.checkboxChecked,
+                ]}
+              >
+                {rememberMe && (
+                  <Ionicons
+                    name="checkmark"
+                    size={15}
+                    color="#FFFFFF"
+                  />
+                )}
+              </View>
+
+              <Text style={styles.rememberText}>
+                Remember Me
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() =>
+                router.push('/forgot-password')
+              }
+            >
+              <Text style={styles.forgotText}>
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity
             style={styles.loginButton}
             onPress={handleLogin}
             activeOpacity={0.8}
           >
-            <Text style={styles.loginButtonText}>Log In</Text>
+            <Text style={styles.loginButtonText}>
+              Log In
+            </Text>
           </TouchableOpacity>
 
           <View style={styles.signupRow}>
-            <Text style={styles.signupText}>Don't have an account? </Text>
+            <Text style={styles.signupText}>
+              Don't have an account?{' '}
+            </Text>
 
-            <TouchableOpacity onPress={() => router.push('/account-type')}>
-              <Text style={styles.signupLink}>Create Account</Text>
+            <TouchableOpacity
+              onPress={() =>
+                router.push('/account-type')
+              }
+            >
+              <Text style={styles.signupLink}>
+                Create Account
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
 
-      <Text style={styles.footer}>DriverCred © 2026</Text>
+      <Text style={styles.footer}>
+        DriverCred © 2026
+      </Text>
     </KeyboardAvoidingView>
   );
 }
@@ -245,10 +307,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  forgotButton: {
-    alignSelf: 'flex-end',
-    marginTop: 12,
+  loginOptionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 14,
     marginBottom: 24,
+  },
+
+  rememberContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 1.5,
+    borderColor: '#CBD5E1',
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    marginRight: 8,
+  },
+
+  checkboxChecked: {
+    backgroundColor: '#07569C',
+    borderColor: '#07569C',
+  },
+
+  rememberText: {
+    color: '#475569',
+    fontSize: 13,
+    fontWeight: '500',
   },
 
   forgotText: {
